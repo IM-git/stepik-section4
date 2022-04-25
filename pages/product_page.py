@@ -4,6 +4,7 @@ from .locators import ProductPageLocators
 EXCEPTION_BUTTON = "Add to basket button is not presented"
 EXCEPTION_NAME = "The name of the books doesn't match."
 EXCEPTION_COST = "The cost of the books doesn't match."
+EXCEPTION_SUCCESS_MESSAGE_BOOK = "Success message is presented, but should not be"
 
 
 class ProductPage(BasePage):
@@ -11,6 +12,7 @@ class ProductPage(BasePage):
 
     def click_add_to_basket_button(self) -> None:
         """Performing a click to the 'Add to basket' button"""
+        self.should_not_be_success_message()
         add_to_basket_button = self.browser.find_element(
             *ProductPageLocators.ADD_TO_BASKET_BUTTON)
         self.should_be_add_basket_button()
@@ -72,6 +74,12 @@ class ProductPage(BasePage):
         """Checking add to basket button present."""
         assert self.is_element_present(
             *ProductPageLocators.ADD_TO_BASKET_BUTTON), EXCEPTION_BUTTON
+
+    def should_not_be_success_message(self):
+        """Check the message should not be presented."""
+        assert self.is_not_element_present(
+            *ProductPageLocators.SUCCESS_MESSAGE_BOOK),\
+            EXCEPTION_SUCCESS_MESSAGE_BOOK
 
     @staticmethod
     def should_be_the_same_values(expected: str,

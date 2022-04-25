@@ -1,6 +1,8 @@
 from pages import ProductPage
 
-LINK = 'http://selenium1py.pythonanywhere.com/catalogue/the-shellcoders-handbook_209/?promo=newYear'
+LINK_STEP_2 = 'http://selenium1py.pythonanywhere.com/catalogue/the-shellcoders-handbook_209/?promo=newYear'
+LINK_STEP_3 = 'http://selenium1py.pythonanywhere.com/ru/catalogue/coders-at-work_207/?promo=newYear2019'
+LINK_STEP_4 = 'http://selenium1py.pythonanywhere.com/ru/catalogue/coders-at-work_207/'
 
 
 def test_guest_can_add_product_to_basket(browser):
@@ -11,7 +13,7 @@ def test_guest_can_add_product_to_basket(browser):
         - Compare name of the books.
         - Compare cost of the books.
         """
-    product_page = ProductPage(browser=browser, url=LINK)
+    product_page = ProductPage(browser=browser, url=LINK_STEP_3)
     product_page.open()
     product_page.click_add_to_basket_button()
     product_page.solve_quiz_and_get_code()

@@ -14,7 +14,7 @@ def pytest_addoption(parser):
                      help="Choose a language.")
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope='function')
 def browser(request):
     """Simple pre-initialization the Chrome/Firefox webdriver."""
 
