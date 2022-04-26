@@ -1,7 +1,4 @@
-import math
-
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
-from selenium.common.exceptions import NoAlertPresentException
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 
@@ -9,6 +6,7 @@ from .locators import BasePageLocators
 
 EXCEPTION_LOGIN_LINK = "Login link is not presented"
 EXCEPTION_BASKET_LINK = "Basket link is not presented"
+EXCEPTION_AUTHORIZED_USER = "User icon is not presented, probably unauthorised user"
 
 
 class BasePage:
@@ -23,7 +21,7 @@ class BasePage:
         self.browser.get(url=self.url)
 
     def is_element_present(self, how, what) -> bool:
-        """Check that element is present"""
+        """Checking that element is present"""
         try:
             self.browser.find_element(how, what)
         except NoSuchElementException:
@@ -31,7 +29,7 @@ class BasePage:
         return True
 
     def is_not_element_present(self, how, what, timeout=4) -> bool:
-        """Check that element doesn't present."""
+        """Checking that element doesn't present."""
         try:
             WebDriverWait(self.browser, timeout).until(
                 EC.presence_of_element_located((how, what)))
@@ -60,27 +58,17 @@ class BasePage:
         basket_link = self.browser.find_element(*BasePageLocators.BASKET_LINK)
         basket_link.click()
 
+    def should_be_authorized_user(self):
+        """Checking the authorized user"""
+        assert self.is_element_present(*BasePageLocators.USER_ICON),\
+            EXCEPTION_AUTHORIZED_USER
+
     def should_be_login_link(self):
         """Check that the login link is present"""
         assert self.is_element_present(*BasePageLocators.LOGIN_LINK),\
             EXCEPTION_LOGIN_LINK
 
     def should_be_basket_link(self):
-        """Check that the login link is present"""
+        """Checking that the login link is present"""
         assert self.is_element_present(*BasePageLocators.BASKET_LINK),\
             EXCEPTION_BASKET_LINK
-
-    def solve_quiz_and_get_code(self) -> None:
-        """Mathematics function for getting number for 'stepik' tasks"""
-        alert = self.browser.switch_to.alert
-        x = alert.text.split(" ")[2]
-        answer = str(math.log(abs((12 * math.sin(float(x))))))
-        alert.send_keys(answer)
-        alert.accept()
-        try:
-            alert = self.browser.switch_to.alert
-            alert_text = alert.text
-            print(f"Your code: {alert_text}")
-            alert.accept()
-        except NoAlertPresentException:
-            print("No second alert presented")

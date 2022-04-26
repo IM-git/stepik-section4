@@ -6,6 +6,7 @@ EXCEPTION_BASKET_EMPTY = "Not found 'Basket empty' message"
 
 
 class BasketPage(BasePage):
+    """The basket page"""
 
     def should_be_basket_empty(self):
         """Check the message should not be presented."""
