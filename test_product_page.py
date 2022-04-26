@@ -1,5 +1,7 @@
 from pages import ProductPage
 from pages import LoginPage
+from pages import BasketPage
+
 import pytest
 
 LINK_STEP_2 = 'http://selenium1py.pythonanywhere.com/catalogue/the-shellcoders-handbook_209/?promo=newYear'
@@ -62,3 +64,15 @@ def test_guest_can_go_to_login_page_from_product_page(browser) -> None:
     page.should_be_login_link()
     page.go_to_login_page()
     login_page.should_be_login_page()
+
+
+def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
+    """Check that can't see product in basket page,
+    when open basket page from product page"""
+    page = ProductPage(browser=browser, url=LINK_STEP_8)
+    basket_page = BasketPage(browser=browser, url=LINK_STEP_8)
+    page.open()
+    # page.should_be_basket_link()
+    page.go_to_basket_page()
+    basket_page.should_not_be_product_in_basket_page()
+    basket_page.should_be_basket_empty()

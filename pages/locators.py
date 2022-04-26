@@ -5,17 +5,25 @@ class BasePageLocators:
     """Locators for main page."""
     LOGIN_LINK = (By.CSS_SELECTOR, "#login_link")
     LOGIN_LINK_INVALID = (By.CSS_SELECTOR, "#login_link_inc")
+    BASKET_LINK = (By.CSS_SELECTOR, ".btn-group a.btn.btn-default")
 
 
-class MainPageLocators:
-    """Locators for main page."""
-    pass
+class BasketPageLocators:
+    """Locators for basket page"""
+    TEXT_BASKET_EMPTY = (By.CSS_SELECTOR, "#content_inner p")
+    BASKET_PRODUCT_FORM = (By.CSS_SELECTOR, "#basket_formset")
+    BASKET_TOTALS = (By.CSS_SELECTOR, "#basket_totals")
 
 
 class LoginPageLocators:
     """Locators for login page."""
     LOGIN_FORM = (By.CSS_SELECTOR, '#login_form')
     REGISTRATION_FORM = (By.CSS_SELECTOR, '#register_form')
+
+
+class MainPageLocators:
+    """Locators for main page."""
+    pass
 
 
 class ProductPageLocators:
