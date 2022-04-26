@@ -4,7 +4,8 @@ from .locators import ProductPageLocators
 EXCEPTION_BUTTON = "Add to basket button is not presented"
 EXCEPTION_NAME = "The name of the books doesn't match."
 EXCEPTION_COST = "The cost of the books doesn't match."
-EXCEPTION_SUCCESS_MESSAGE_BOOK = "Success message is presented, but should not be"
+EXCEPTION_MESSAGE_NOT_PRESENT = "Success message is presented, but should not be"
+EXCEPTION_MESSAGE_IS_DISAPPEARED = "Success message is presented, but should not be"
 
 
 class ProductPage(BasePage):
@@ -12,10 +13,9 @@ class ProductPage(BasePage):
 
     def click_add_to_basket_button(self) -> None:
         """Performing a click to the 'Add to basket' button"""
-        self.should_not_be_success_message()
+        self.should_be_add_basket_button()
         add_to_basket_button = self.browser.find_element(
             *ProductPageLocators.ADD_TO_BASKET_BUTTON)
-        self.should_be_add_basket_button()
         add_to_basket_button.click()
 
     def should_be_message_product_added_in_basket(self) -> None:
@@ -79,7 +79,13 @@ class ProductPage(BasePage):
         """Check the message should not be presented."""
         assert self.is_not_element_present(
             *ProductPageLocators.SUCCESS_MESSAGE_BOOK),\
-            EXCEPTION_SUCCESS_MESSAGE_BOOK
+            EXCEPTION_MESSAGE_NOT_PRESENT
+
+    def should_is_disappeared_success_message(self):
+        """Check the message should not be presented."""
+        assert self.is_disappeared(
+            *ProductPageLocators.SUCCESS_MESSAGE_BOOK),\
+            EXCEPTION_MESSAGE_IS_DISAPPEARED
 
     @staticmethod
     def should_be_the_same_values(expected: str,

@@ -5,6 +5,7 @@ from selenium.webdriver.chrome.options import Options
 
 PATH_CHROME = 'C:\\Users\\user\\.wdm\\drivers\\chromedriver\\win32\\100.0.4896.60\\chromedriver.exe'
 PATH_FIREFOX = 'C:\\Users\\user\\.wdm\\drivers\\geckodriver\\win64\\v0.30.0\\geckodriver.exe'
+TIME = 5
 
 
 def pytest_addoption(parser):
@@ -37,7 +38,7 @@ def browser(request):
                                    firefox_profile=fp)
     else:
         raise pytest.UsageError("--browser_name should be chrome or firefox")
-    driver.implicitly_wait(10)
+    driver.implicitly_wait(TIME)
     driver.maximize_window()
     yield driver
     driver.quit()
