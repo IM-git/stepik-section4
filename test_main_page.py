@@ -1,6 +1,4 @@
-from pages import MainPage
-from pages import LoginPage
-from pages import BasketPage
+from pages import MainPage, LoginPage, BasketPage
 
 LINK = 'http://selenium1py.pythonanywhere.com/'
 
@@ -17,7 +15,6 @@ class TestLoginFromMainPage:
         login_page.should_be_login_page()
 
     def test_guest_should_see_login_link(self, browser) -> None:
-        """Check that can see the link to login page on main page"""
         page = MainPage(browser=browser, url=LINK)
         page.open()
         page.should_be_login_link()
